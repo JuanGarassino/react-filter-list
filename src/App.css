@@ -8,15 +8,23 @@
 
 .App-header {
   background-color: rgb(245, 245, 245);;
-  min-height: 100vh;
+  min-height: 10vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: left;
   font-size: calc(10px + 2vmin);
   color: black;
 }
 
 .App-link {
   color: #09d3ac;
+}
+
+.App-advisor-online {
+  cursor: pointer;
+}
+
+.App-advisor-offline {
+  cursor: not-allowed;
 }
