@@ -15,6 +15,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -94,38 +97,47 @@ const classes = useStyles();
 }
 
 function App() {
-  let [advisors, setAdvisors] = useState(['ajaja']);
+  let [loading, setLoading] = useState(true);
+  let [advisors, setAdvisors] = useState([]);
   const classes = useStyles();
   
   async function fetchData() {
     const res = await fetch("http://localhost:3000/advisors");
     let response = await res.json()
     setAdvisors(response.advisors)
+    setLoading(false);
   }
   
   useEffect(() => {
     fetchData()
   }, []);
+  if (loading) {
+    return (
+      <div className="App">
+         <CircularProgress/>
+      </div>       
+    )    
+  } else {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <div>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="component-simple">Enter name</InputLabel>
+            <Input id="component-simple" />
+          </FormControl>
+            <Button variant="contained" color="primary" onClick={sortByReview}>
+              Reviews
+            </Button>
+          </div>
+        </header>
+        <section className="App-section">
+          <AdvisorsTable advisors={advisors}></AdvisorsTable>
+        </section>
   
-  return (
-    <div className="App">
-      <header className="App-header">
-        <div>
-        <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="component-simple">Enter name</InputLabel>
-          <Input id="component-simple" />
-        </FormControl>
-          <Button variant="contained" color="primary" onClick={sortByReview()}>
-            Reviews
-          </Button>
-        </div>
-      </header>
-      <section className="App-section">
-        <AdvisorsTable advisors={advisors}></AdvisorsTable>
-      </section>
-
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
 export default App;
