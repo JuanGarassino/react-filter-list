@@ -40,8 +40,10 @@ const useStyles = makeStyles(theme => ({
     cursor: 'pointer',
   },
 }));
+
+
 function sortByReview() {
-  console.log('Daleleeeee')
+  console.log('First sort function')
 }
 
 function AdvisorStatus({status}) {
@@ -111,10 +113,11 @@ function App() {
   useEffect(() => {
     fetchData()
   }, []);
+
   if (loading) {
     return (
       <div className="App">
-         <CircularProgress/>
+         Loading...
       </div>       
     )    
   } else {
@@ -134,7 +137,6 @@ function App() {
         <section className="App-section">
           <AdvisorsTable advisors={advisors}></AdvisorsTable>
         </section>
-  
       </div>
     );
   }
